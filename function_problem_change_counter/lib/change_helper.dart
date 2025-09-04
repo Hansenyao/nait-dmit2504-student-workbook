@@ -1,0 +1,53 @@
+import 'dart:io';
+
+/// Prompts a user for his change counts
+/// [Returns] ordered list of coins (pennings, nickels, dimes, quarters, loonies, toonies)
+List<int> promptForChange() {
+  List<int> output = [];
+
+  List<String> coinTypes = [
+    'pennings', 
+    'nickels', 
+    'dimes', 
+    'quarters', 
+    'loonies', 
+    'toonies',
+    ];
+
+  // Prompt for each type of coin
+  for (var coinType in coinTypes) {
+    stdout.writeln('How many $coinType do you have in your pocket?');
+    late int coinCount;
+
+    // Validate that input is a valid integer
+    try {
+      coinCount = int.parse(stdin.readLineSync() ?? '0');
+    } catch (e) {
+      throw Exception('User did not enter an integer');
+    }
+    if (coinCount < 0) {
+      throw Exception('User entered a negative number');
+    }
+
+    // Store the value of the coins
+    output.add(coinCount);
+  }
+
+  return output;
+}
+
+/// Calculate the total number of cents given an ordered list of coins (pennings, nickels, dimes, quarters, loonies, toonies)
+/// [Returns] the total number of cents
+int calculateTotal({required List<int> coinCounts}) {
+  int total = 0;
+
+  // Multiply and tally each coin count by its value
+  total += coinCounts[0];
+  total += coinCounts[1] * 5;
+  total += coinCounts[2] * 10;
+  total += coinCounts[3] * 25;
+  total += coinCounts[4] * 100;
+  total += coinCounts[5] * 200;
+
+  return total; 
+}
