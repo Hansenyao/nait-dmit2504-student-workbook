@@ -9,13 +9,25 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSwatch(
-          primarySwatch: Colors.deepPurple,
-          backgroundColor: Colors.green,
-        ),
+    var lightTheme = ThemeData(
+      colorScheme: ColorScheme.fromSwatch(
+        primarySwatch: Colors.deepOrange,
+        backgroundColor: Colors.green,
       ),
+    );
+
+    var darkTheme = lightTheme.copyWith(
+      colorScheme: ColorScheme.fromSwatch(
+        primarySwatch: Colors.deepOrange,
+        cardColor: Colors.black87,
+        backgroundColor: Colors.black87,
+      ),
+    );
+
+    return MaterialApp(
+      themeMode: ThemeMode.light, // ThemeMode.dark,
+      theme: lightTheme,
+      darkTheme: darkTheme,
       home: Scaffold(
         appBar: AppBar(title: Text('Layout example')),
         body: Center(
