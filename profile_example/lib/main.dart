@@ -10,6 +10,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSwatch(
+          primarySwatch: Colors.deepPurple,
+          backgroundColor: Colors.green,
+        ),
+      ),
       home: Scaffold(
         appBar: AppBar(title: Text('Layout example')),
         body: Center(
@@ -18,7 +24,7 @@ class MyApp extends StatelessWidget {
               // Header
               ProfileHeader(header: 'Employee Profile'),
               // Avatar
-              ProfileImage(imageUrl: '/assets/images/avatar.jpg'),
+              ProfileImage(imageUrl: 'assets/images/avatar.jpg'),
               // Name
               Text(
                 'Nathan humphrey',
@@ -53,7 +59,11 @@ class ProfileHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       header,
-      style: TextStyle(fontSize: 36.0, fontWeight: FontWeight.bold),
+      style: TextStyle(
+        fontSize: 36.0,
+        fontWeight: FontWeight.bold,
+        color: Theme.of(context).colorScheme.primary,
+      ),
     );
   }
 }
@@ -64,9 +74,23 @@ class ProfileImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return Container(
+      width: 250,
+      height: 250,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        image: DecorationImage(image: AssetImage(imageUrl), fit: BoxFit.cover),
+        border: Border.all(
+          width: 4.0,
+          color: Theme.of(context).colorScheme.background,
+        ),
+      ),
+    );
+
+    /*
     return ClipOval(
       child: Image.asset(imageUrl, height: 250, width: 250, fit: BoxFit.cover),
-    );
+    );*/
   }
 }
 
