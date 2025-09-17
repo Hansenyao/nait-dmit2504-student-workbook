@@ -16,19 +16,9 @@ class MyApp extends StatelessWidget {
           child: Column(
             children: [
               // Header
-              Text(
-                'Employee Profile',
-                style: TextStyle(fontSize: 36.0, fontWeight: FontWeight.bold),
-              ),
+              ProfileHeader(header: 'Employee Profile'),
               // Avatar
-              ClipOval(
-                child: Image.asset(
-                  'assets/images/avatar.jpg',
-                  height: 250,
-                  width: 250,
-                  fit: BoxFit.cover,
-                ),
-              ),
+              ProfileImage(imageUrl: '/assets/images/avatar.jpg'),
               // Name
               Text(
                 'Nathan humphrey',
@@ -51,6 +41,31 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class ProfileHeader extends StatelessWidget {
+  final String header;
+  const ProfileHeader({required this.header, super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      header,
+      style: TextStyle(fontSize: 36.0, fontWeight: FontWeight.bold),
+    );
+  }
+}
+
+class ProfileImage extends StatelessWidget {
+  final String imageUrl;
+  const ProfileImage({required this.imageUrl, super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipOval(
+      child: Image.asset(imageUrl, height: 250, width: 250, fit: BoxFit.cover),
     );
   }
 }
