@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:json_theme/json_theme.dart';
+//import 'package:json_theme/json_theme.dart';
 
-import 'package:flutter/services.dart'; // For rootBundle
-import 'dart:convert'; // For jsonDecode
+//import 'package:flutter/services.dart'; // For rootBundle
+//import 'dart:convert'; // For jsonDecode
 
 void main() async {
+  /*
   WidgetsFlutterBinding.ensureInitialized();
 
   final themeStr = await rootBundle.loadString(
@@ -14,12 +15,14 @@ void main() async {
   final theme = ThemeDecoder.decodeThemeData(themeJson)!;
 
   runApp(MyApp(theme: theme));
+  */
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  final ThemeData theme;
-  const MyApp({Key? key, required this.theme}) : super(key: key);
-  // const MyApp({required this.theme, super.key});
+  //final ThemeData theme;
+  //const MyApp({Key? key, required this.theme}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +44,7 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
       themeMode: ThemeMode.light, // ThemeMode.dark,
-      theme: theme, //lightTheme,
+      theme: lightTheme, //theme,
       darkTheme: darkTheme,
       home: Scaffold(
         appBar: AppBar(title: Text('Layout example')),
