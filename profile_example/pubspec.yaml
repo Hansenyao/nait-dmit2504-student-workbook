@@ -38,6 +38,7 @@ dependencies:
   cupertino_icons: ^1.0.8
 
 # use json_theme from below project to avoid conflict with Flutter SDK
+# Reference: https://github.com/peiffer-innovations/json_theme/issues/282
 dependency_overrides:
   json_theme:
     git:
