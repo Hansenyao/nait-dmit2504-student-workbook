@@ -37,6 +37,13 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
 
+# use json_theme from below project to avoid conflict with Flutter SDK
+dependency_overrides:
+  json_theme:
+    git:
+      url: https://github.com/wardbj93/json_theme
+      path: packages/json_theme
+      
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -56,7 +63,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
-    - assets/themes/appainter_theme.json
+    - assets/themes/
   fonts:
     - family: ComicRelief
       fonts:

@@ -7,7 +7,9 @@ import 'dart:convert'; // For jsonDecode
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  final themeStr = await rootBundle.loadString('assets/appainter_theme.json');
+  final themeStr = await rootBundle.loadString(
+    'assets/themes/appainter_theme.json',
+  );
   final themeJson = jsonDecode(themeStr);
   final theme = ThemeDecoder.decodeThemeData(themeJson)!;
 
