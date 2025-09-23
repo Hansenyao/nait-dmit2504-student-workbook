@@ -35,6 +35,28 @@ class _RandomDogImageState extends State<RandomDogImage> {
 
   @override
   Widget build(BuildContext context) {
-    return Image.network(_dogImageUrl, height: 250);
+    return _dogImageUrl.isEmpty
+        ? CircularProgressIndicator()
+        : Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.network(_dogImageUrl, height: 250),
+              ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    // Show CircularProgressIndicator
+                    _dogImageUrl = '';
+                  });
+                  getRandomDogURL().then((url) {
+                    setState(() {
+                      // Show new dog image
+                      _dogImageUrl = url;
+                    });
+                  });
+                },
+                child: Text('Get me a new dog please'),
+              ),
+            ],
+          );
   }
 }
