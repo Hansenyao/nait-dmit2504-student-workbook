@@ -13,6 +13,8 @@ class RandomDogImage extends StatefulWidget {
 
 class _RandomDogImageState extends State<RandomDogImage> {
   String _dogImageUrl = '';
+  int _likes = 0;
+  int _dislikes = 0;
 
   Future<String> getRandomDogURL() async {
     var endpoint = Uri.parse(widget.endpoint);
@@ -25,11 +27,32 @@ class _RandomDogImageState extends State<RandomDogImage> {
     super.initState();
 
     // Get a random dog on load
+    _refreshDog();
+  }
+
+  void incrementCounter(bool isLikes) {
+    setState(() {
+      if (isLikes) {
+        _likes++;
+      } else {
+        _dislikes++;
+      }
+    });
+    _refreshDog();
+  }
+
+  void _refreshDog() {
+    setState(() {
+      // Show CircularProgressIndicator
+      _dogImageUrl = '';
+    });
     getRandomDogURL().then((url) {
-      // Set the state trigger a rerender
-      setState(() {
-        _dogImageUrl = url;
-      });
+      if (mounted) {
+        setState(() {
+          // Show new dog image
+          _dogImageUrl = url;
+        });
+      }
     });
   }
 
@@ -41,19 +64,15 @@ class _RandomDogImageState extends State<RandomDogImage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.network(_dogImageUrl, height: 250),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Text('Likes: $_likes', style: TextStyle(fontSize: 24)),
+                  Text('Dislikes: $_dislikes', style: TextStyle(fontSize: 24)),
+                ],
+              ),
               ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    // Show CircularProgressIndicator
-                    _dogImageUrl = '';
-                  });
-                  getRandomDogURL().then((url) {
-                    setState(() {
-                      // Show new dog image
-                      _dogImageUrl = url;
-                    });
-                  });
-                },
+                onPressed: _refreshDog,
                 child: Text('Get me a new dog please'),
               ),
             ],
