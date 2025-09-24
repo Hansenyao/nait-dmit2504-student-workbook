@@ -30,7 +30,7 @@ class _RandomDogImageState extends State<RandomDogImage> {
     _refreshDog();
   }
 
-  void incrementCounter(bool isLikes) {
+  void _incrementCounter(bool isLikes) {
     setState(() {
       if (isLikes) {
         _likes++;
@@ -63,7 +63,15 @@ class _RandomDogImageState extends State<RandomDogImage> {
         : Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.network(_dogImageUrl, height: 250),
+              GestureDetector(
+                onDoubleTap: () {
+                  _incrementCounter(true);
+                },
+                onLongPress: () {
+                  _incrementCounter(false);
+                },
+                child: Image.network(_dogImageUrl, height: 250),
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
