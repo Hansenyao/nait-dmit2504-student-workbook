@@ -25,6 +25,16 @@ class UserLoginForm extends StatefulWidget {
 class _UserLoginFormState extends State<UserLoginForm> {
   final _formKey = GlobalKey<FormState>();
 
+  final _userNameController = TextEditingController();
+  final _passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    super.dispose();
+    _userNameController.dispose();
+    _passwordController.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -35,8 +45,12 @@ class _UserLoginFormState extends State<UserLoginForm> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text('Login Form'),
-            TextFormField(decoration: InputDecoration(label: Text('Username'))),
             TextFormField(
+              controller: _userNameController,
+              decoration: InputDecoration(label: Text('Username')),
+            ),
+            TextFormField(
+              controller: _passwordController,
               obscureText: true,
               enableSuggestions: false,
               autocorrect: false,
