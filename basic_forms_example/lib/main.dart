@@ -62,6 +62,7 @@ class _UserLoginFormState extends State<UserLoginForm> {
               },
               decoration: InputDecoration(label: Text('Password')),
             ),
+            //PasswordFormField(controller: _passwordController),
             TextButton(
               onPressed: () {
                 // First we will validete the fields
@@ -108,5 +109,64 @@ class UsernameInput extends StatelessWidget {
           value == null || value.isEmpty ? 'Username cannot be empty' : null,
       decoration: InputDecoration(label: Text(label)),
     );
+  }
+}
+
+class PasswordFormField extends FormField {
+  final TextEditingController controller;
+
+  PasswordFormField({super.key, required this.controller, super.validator})
+    : super(
+        builder: (state) {
+          var customState = state as __PasswordFormFieldStateState;
+          customState._controller = controller;
+          return TextFormField(
+            validator: validator,
+            controller: controller,
+            obscureText: true,
+            autocorrect: false,
+            enableSuggestions: false,
+            decoration: InputDecoration(label: Text('Password')),
+            onChanged: customState.didChange,
+          );
+        },
+      );
+
+  @override
+  FormFieldState<String> createState() => __PasswordFormFieldStateState();
+}
+
+class __PasswordFormFieldStateState extends FormFieldState<String> {
+  TextEditingController? _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    if (_controller != null) {
+      _controller?.addListener(_controllerChanged);
+    }
+  }
+
+  void _controllerChanged() {
+    // In here I could handle controller change in some custom way
+    didChange(_controller?.text);
+  }
+
+  @override
+  void reset() {
+    super.reset();
+    // Here we could override the reset to handle that in a custom way
+    if (_controller != null) {
+      _controller?.text = '';
+    }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    // If you override the custom onChage you also should override the custom dispose
+    if (_controller != null) {
+      _controller?.removeListener(_controllerChanged);
+    }
   }
 }
