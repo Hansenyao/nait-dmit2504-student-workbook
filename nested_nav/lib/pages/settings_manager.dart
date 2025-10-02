@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart'
+import 'package:flutter/material.dart';
 
 class SettingsManager extends StatefulWidget {
   const SettingsManager({super.key});
@@ -10,6 +10,6 @@ class SettingsManager extends StatefulWidget {
 class _SettingsManagerState extends State<SettingsManager> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Text('This is the settings manager'),);
+    return Scaffold(body: Text('This is the settings manager'));
   }
 }
