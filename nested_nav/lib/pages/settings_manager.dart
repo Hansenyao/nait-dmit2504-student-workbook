@@ -5,15 +5,17 @@ import 'package:nested_nav/pages/settings/option_3.dart';
 import 'package:nested_nav/pages/settings/settings_page.dart';
 
 class SettingsManager extends StatefulWidget {
-  late String initialRoute;
+  final String initialRoute;
 
-  SettingsManager({super.key, required this.initialRoute});
+  const SettingsManager({super.key, required this.initialRoute});
 
   @override
   State<SettingsManager> createState() => _SettingsManagerState();
 }
 
 class _SettingsManagerState extends State<SettingsManager> {
+  final _navigatorKey = GlobalKey<NavigatorState>();
+
   Route _customOnGenerateRoute(RouteSettings settings) {
     Widget page;
 
@@ -41,7 +43,23 @@ class _SettingsManagerState extends State<SettingsManager> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('App Settings'),
+        leading: IconButton(
+          onPressed: () {
+            // Check if the sibling navigator has any pages on the stack
+            // If not pop the parent stack
+            if (_navigatorKey.currentState!.canPop()) {
+              _navigatorKey.currentState!.pop();
+            } else {
+              Navigator.of(context).pop();
+            }
+          },
+          icon: Icon(Icons.arrow_back),
+        ),
+      ),
       body: Navigator(
+        key: _navigatorKey,
         onGenerateRoute: _customOnGenerateRoute,
         initialRoute: widget.initialRoute,
       ),
