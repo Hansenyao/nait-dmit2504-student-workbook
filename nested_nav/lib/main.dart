@@ -20,8 +20,10 @@ class MainApp extends StatelessWidget {
           case '/':
             page = HomePage();
             break;
-          case '/settings/home':
-            page = SettingsManager();
+          case String name when name.startsWith('/settings/'):
+            // This allows /settings/home to pass /home to the settings manager
+            // Or /settings/option1 passes /option1
+            page = SettingsManager(initialRoute: settings.name!.substring(9));
             break;
           default:
             throw Exception('Unknow Route Used: ${settings.name}');
