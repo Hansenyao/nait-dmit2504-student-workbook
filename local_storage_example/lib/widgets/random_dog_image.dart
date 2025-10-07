@@ -28,8 +28,17 @@ class _RandomDogImageState extends State<RandomDogImage> {
   void initState() {
     super.initState();
 
-    // Get a random dog on load
-    _refreshDog();
+    getTemporaryDirectory().then((dir) {
+      final file = File('${dir.path}/last_seen_dog.jpg');
+      if (file.existsSync()) {
+        setState(() {
+          _dogImageUrl = '${dir.path}/last_seen_dog.jpg';
+        });
+      } else {
+        // Get a random dog on load
+        _refreshDog();
+      }
+    });
   }
 
   void _incrementCounter(bool isLikes) {
