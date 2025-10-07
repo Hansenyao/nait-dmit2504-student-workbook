@@ -66,6 +66,18 @@ class _RandomDogImageState extends State<RandomDogImage> {
   }
 
   Widget _buildImage() {
+    Widget childWidget;
+
+    if (_dogImageUrl.startsWith('http')) {
+      // Netwark image url
+      childWidget = Image.network(_dogImageUrl);
+
+      // TODO: Update the local cache with the dog image from the network
+    } else {
+      // Local image url
+      childWidget = Image.file(File(_dogImageUrl));
+    }
+
     return _dogImageUrl.isEmpty
         ? CircularProgressIndicator()
         : GestureDetector(
@@ -75,7 +87,7 @@ class _RandomDogImageState extends State<RandomDogImage> {
             onLongPress: () {
               _incrementCounter(false);
             },
-            child: Image.network(_dogImageUrl, height: 250),
+            child: childWidget,
           );
   }
 
