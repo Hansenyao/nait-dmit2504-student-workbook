@@ -65,6 +65,21 @@ class _RandomDogImageState extends State<RandomDogImage> {
     });
   }
 
+  void _saveImage(String url) async {
+    // Get the temp directory
+    final dir = await getTemporaryDirectory();
+
+    // Create the file path
+    final filePath = '${dir.path}/last_seen_dog.jpg';
+
+    // Get the image from th einternet
+    final response = await http.get(Uri.parse(url));
+
+    // Write the image to the file path
+    final file = File(filePath);
+    file.writeAsBytesSync(response.bodyBytes);
+  }
+
   Widget _buildImage() {
     Widget childWidget;
 
@@ -72,7 +87,8 @@ class _RandomDogImageState extends State<RandomDogImage> {
       // Netwark image url
       childWidget = Image.network(_dogImageUrl);
 
-      // TODO: Update the local cache with the dog image from the network
+      // Update the local cache with the dog image from the network
+      _saveImage(_dogImageUrl);
     } else {
       // Local image url
       childWidget = Image.file(File(_dogImageUrl));
