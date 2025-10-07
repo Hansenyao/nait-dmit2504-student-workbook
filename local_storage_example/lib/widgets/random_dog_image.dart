@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RandomDogImage extends StatefulWidget {
   const RandomDogImage({super.key});
@@ -48,8 +49,14 @@ class _RandomDogImageState extends State<RandomDogImage> {
       } else {
         _dislikes++;
       }
+      _updateCounterPreferences(isLikes);
     });
     _refreshDog();
+  }
+
+  void _updateCounterPreferences(bool isLikes) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setInt(isLikes ? 'likes' : 'dislinkes', isLikes ? _likes : _dislikes);
   }
 
   void _refreshDog() {
