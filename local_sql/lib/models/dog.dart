@@ -11,7 +11,7 @@ class Dog {
   }
 
   // Factory constructor that takes a map from SQL (sqflite) and turns it into a dog
-  factory Dog.from(Map<String, Object?> dogMap) {
+  factory Dog.fromMap(Map<String, Object?> dogMap) {
     return Dog(
       id: dogMap['id'] as int,
       name: dogMap['name'] as String,
