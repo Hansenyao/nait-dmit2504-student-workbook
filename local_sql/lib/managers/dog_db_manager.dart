@@ -51,7 +51,7 @@ class DogDbManager {
 
   Future<List<Dog>> getDogs() async {
     final db = await database;
-    final dogMaps = await db.query('dogs');
+    final dogMaps = await db.query('dog');
 
     return [for (final dogMap in dogMaps) Dog.fromMap(dogMap)];
   }
