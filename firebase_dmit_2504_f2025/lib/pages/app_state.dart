@@ -29,6 +29,7 @@ class ApplicationState extends ChangeNotifier {
       } else {
         _loggedIn = false;
       }
+      //Notifica
     });
   }
 }

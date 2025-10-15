@@ -2,6 +2,8 @@ import 'package:firebase_dmit_2504_f2025/pages/app_state.dart';
 import 'package:firebase_dmit_2504_f2025/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_ui_auth/firebase_ui_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -10,17 +12,56 @@ void main() async {
 
   final appState = ApplicationState();
 
-  runApp(const MainApp());
+  runApp(MainApp(appState: appState));
 }
 
 class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+  const MainApp({super.key, required this.appState});
+
+  final ApplicationState appState;
 
   @override
   Widget build(BuildContext context) {
     final routes = {
       '/': (context) {
-        return HomePage();
+        return HomePage(authAppState: appState);
+      },
+      '/sign-in': (context) {
+        return SignInScreen(
+          actions: [
+            AuthStateChangeAction((context, authSate) {
+              // Auth state has changed, find out waht happened and handle it
+              final user = switch (authSate) {
+                SignedIn state => state.user,
+                UserCreated state => state.credential.user,
+                _ => null,
+              };
+
+              // If the user is null (logut case) do nothing
+              if (user == null) {
+                return;
+              }
+
+              if (authSate is UserCreated) {
+                user.updateDisplayName(user.email!.split('@').first);
+              }
+
+              // User is not null so go to the home page
+              Navigator.of(context).pop();
+              Navigator.of(context).pushReplacementNamed('/');
+            }),
+          ],
+        );
+      },
+      '/profile': (context) {
+        return ProfileScreen(
+          actions: [
+            SignedOutAction((context) {
+              Navigator.of(context).pop();
+              Navigator.of(context).pushReplacementNamed('/');
+            }),
+          ],
+        );
       },
     };
     return MaterialApp(routes: routes);
