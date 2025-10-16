@@ -14,11 +14,21 @@ class HomePage extends StatelessWidget {
           listenable: authAppState,
           builder: (context, _) {
             return authAppState.isLongIn
-                ? ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).pushNamed('/profile');
-                    },
-                    child: Text(''),
+                ? Column(
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context).pushNamed('/profile');
+                        },
+                        child: Text('go to profile'),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context).pushNamed('/todos');
+                        },
+                        child: Text('go to todos page'),
+                      ),
+                    ],
                   )
                 : ElevatedButton(
                     onPressed: () {

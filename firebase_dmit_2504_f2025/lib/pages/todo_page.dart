@@ -9,7 +9,7 @@ class TodoPage extends StatefulWidget {
 }
 
 class _TodoPageState extends State<TodoPage> {
-  List<Todo> _todolist = [
+  final List<Todo> _todolist = [
     Todo(description: 'Paint office', completed: false),
     Todo(description: 'Install smoke detectors', completed: true),
   ];
