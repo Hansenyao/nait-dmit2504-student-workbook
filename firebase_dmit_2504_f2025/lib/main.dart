@@ -74,7 +74,7 @@ class MainApp extends StatelessWidget {
           if (appState.isLongIn) {
             return MaterialPageRoute(
               builder: (context) {
-                return TodoPage();
+                return TodoPage(appState: appState);
               },
             );
           }
