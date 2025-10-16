@@ -4,8 +4,6 @@ import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart' hide EmailAuthProvider;
 
-import "firebase_options.dart";
-
 class ApplicationState extends ChangeNotifier {
   ApplicationState() {
     init();
@@ -13,6 +11,15 @@ class ApplicationState extends ChangeNotifier {
 
   bool _loggedIn = false;
   bool get isLongIn => _loggedIn;
+
+  User? _user;
+  User? get user => _user;
+  set user(User? user) {
+    if (user == null) {
+      throw ArgumentError('Cannot set user to null');
+    }
+    _user = user;
+  }
 
   void init() async {
     // Connect to firebase
@@ -28,6 +35,7 @@ class ApplicationState extends ChangeNotifier {
       // when the user changes check if null and update loggedIn accordingly
       if (user != null) {
         _loggedIn = true;
+        this.user = user;
       } else {
         _loggedIn = false;
       }
