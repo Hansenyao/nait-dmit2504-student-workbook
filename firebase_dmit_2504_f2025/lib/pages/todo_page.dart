@@ -30,20 +30,28 @@ class _TodoPageState extends State<TodoPage> {
       body: Center(
         child: ListView.builder(
           itemBuilder: (context, index) {
-            return ListTile(
-              title: Text(_todolist[index].description),
-              trailing: Checkbox(
-                value: _todolist[index].completed,
-                onChanged: (value) {
-                  // TODO: Update the todo item status
-                  // Update frontend first
-                  setState(() {
-                    _todolist[index].completed = value!;
-                  });
-                  // Update backend next (we should handle failtures but we won't in this example)
-                  widget.appState.updateTodo(_todolist[index]);
-                },
+            return Dismissible(
+              key: UniqueKey(),
+              child: ListTile(
+                title: Text(_todolist[index].description),
+                trailing: Checkbox(
+                  value: _todolist[index].completed,
+                  onChanged: (value) {
+                    setState(() {
+                      // Update frontend first
+                      _todolist[index].completed = value!;
+                      // Update backend next (we should handle failtures but we won't in this example)
+                      widget.appState.updateTodo(_todolist[index]);
+                    });
+                  },
+                ),
               ),
+              onDismissed: (direction) {
+                setState(() {
+                  _todolist.removeAt(index);
+                  widget.appState.deleteTodo(_todolist[index]);
+                });
+              },
             );
           },
           itemCount: _todolist.length,
