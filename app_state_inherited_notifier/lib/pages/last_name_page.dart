@@ -1,4 +1,5 @@
 import 'package:app_state_inherited_notifier/models/user.dart';
+import 'package:app_state_inherited_notifier/widgets/user_notifier.dart';
 import 'package:flutter/material.dart';
 
 class LastNamePage extends StatelessWidget {
@@ -9,6 +10,8 @@ class LastNamePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    User user = UserNotifier.of(context);
+
     return Scaffold(
       appBar: AppBar(title: const Text('Last Name Page')),
       body: Center(
