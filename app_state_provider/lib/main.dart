@@ -1,13 +1,17 @@
-import 'package:app_state_provider/widgets/user_notifier.dart';
 import 'package:flutter/material.dart';
-import 'pages/home_page.dart';
+import 'package:provider/provider.dart';
+
 import 'package:app_state_provider/models/user.dart';
+import 'pages/home_page.dart';
 
 void main() {
-  runApp(const MainApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => User('Gary', 'Gygax'),
+      child: const MainApp(),
+    ),
+  );
 }
-
-User user = User('Tom', 'Maurer');
 
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
