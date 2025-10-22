@@ -1,19 +1,24 @@
+import 'package:app_state_inherited_notifier/widgets/user_notifier.dart';
 import 'package:flutter/material.dart';
+import 'pages/home_page.dart';
+import 'package:app_state_inherited_notifier/models/user.dart';
 
 void main() {
   runApp(const MainApp());
 }
+
+User user = User('Tom', 'Maurer');
 
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
+    // Wrap material app with a user Notifier
+    return UserNotifier(
+      user: user,
+      child: MaterialApp(
+        home: Scaffold(body: Center(child: HomePage())),
       ),
     );
   }
