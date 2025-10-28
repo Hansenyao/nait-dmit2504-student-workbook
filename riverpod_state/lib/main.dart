@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 
 import 'pages/home_page.dart';
 
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 void main() {
-  runApp(const MainApp());
+  runApp(ProviderScope(child: MainApp()));
 }
 
 class MainApp extends StatelessWidget {
@@ -12,11 +14,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: HomePage(),
-        ),
-      ),
+      home: Scaffold(body: Center(child: HomePage())),
     );
   }
 }
