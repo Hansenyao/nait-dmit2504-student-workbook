@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:bloc_state/models/user.dart';
+import 'package:bloc_state/state/user_cubit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class FirstNamePage extends StatelessWidget {
   const FirstNamePage({super.key});
@@ -6,23 +9,27 @@ class FirstNamePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('First Name Page'),
-      ),
-      body: const Center(
+      appBar: AppBar(title: const Text('First Name Page')),
+      body: Center(
         child: Column(
           children: <Widget>[
-            SizedBox(
-              height: 24.0,
+            SizedBox(height: 24.0),
+            BlocBuilder<UserCubit, UserState>(
+              builder: (context, state) {
+                return Text(
+                  'User name: ${state.user.firstName} ${state.user.lastName}',
+                );
+              },
             ),
-            Text('User name: USER_NAME HERE'),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
         // Update our user firs name here
         onPressed: () {
-          //noop;
+          final user = context.read<UserCubit>().state.user;
+          user.firstName = 'Jezebel';
+          context.read<UserCubit>();
         },
         child: const Icon(Icons.update),
       ),
