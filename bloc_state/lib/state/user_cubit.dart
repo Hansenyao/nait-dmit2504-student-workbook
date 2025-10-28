@@ -12,4 +12,7 @@ class UserCubit extends Cubit<UserState> {
   UserCubit() : super(UserState(User("Bobby", "Marlone")));
 
   // Public Method to emit new User States
+  void updateUser(User user) {
+    return emit(UserState(user));
+  }
 }

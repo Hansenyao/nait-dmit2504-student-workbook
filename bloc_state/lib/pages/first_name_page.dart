@@ -29,7 +29,7 @@ class FirstNamePage extends StatelessWidget {
         onPressed: () {
           final user = context.read<UserCubit>().state.user;
           user.firstName = 'Jezebel';
-          context.read<UserCubit>();
+          context.read<UserCubit>().updateUser(user);
         },
         child: const Icon(Icons.update),
       ),
