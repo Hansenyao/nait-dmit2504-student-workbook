@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:bloc_state/models/user.dart';
 import 'package:bloc_state/state/user_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
