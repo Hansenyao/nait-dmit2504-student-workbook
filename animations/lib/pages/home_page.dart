@@ -1,3 +1,4 @@
+import 'package:animations/pages/animations_page.dart';
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
@@ -14,12 +15,12 @@ class HomePage extends StatelessWidget {
           children: [
             // Plain rotation transform
             Transform.rotate(
-              angle: 30 * math.pi / 180,
+              angle: -180 * math.pi / 180,
               child: Text('Rotae Only'),
             ),
             SizedBox(height: 110),
             Transform.translate(
-              offset: Offset(50, 50),
+              offset: Offset(0, -200),
               child: Transform.scale(
                 scale: 3,
                 child: Transform.rotate(
@@ -30,6 +31,13 @@ class HomePage extends StatelessWidget {
             ),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(
+            context,
+          ).push(MaterialPageRoute(builder: (context) => AnimationsPage()));
+        },
       ),
     );
   }
