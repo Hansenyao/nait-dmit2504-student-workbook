@@ -41,8 +41,12 @@ class _AnimationsPageState extends State<AnimationsPage>
             // Basic animation using the pure controller (no curve)
             AnimatedBuilder(
               animation: _controller,
+              child: Text("Curved Animations"),
               builder: (context, child) {
-                return Transform.rotate(angle: _controller.value * 2 * math.pi);
+                return Transform.rotate(
+                  angle: _controller.value * 2 * math.pi,
+                  child: child,
+                );
               },
             ),
             SizedBox(height: 110),
@@ -67,6 +71,10 @@ class _AnimationsPageState extends State<AnimationsPage>
                 );
               },
               child: Text("Tween rotation"),
+            ),
+            RotationTransition(
+              turns: _controller,
+              child: Text('Rotation Transition'),
             ),
           ],
         ),
