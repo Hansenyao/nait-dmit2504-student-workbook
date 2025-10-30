@@ -24,6 +24,7 @@ class _CameraPageState extends State<CameraPage> {
     _controller
         .initialize()
         .then((_) {
+          if (!mounted) return;
           // Once the controller is initialized, it's good practice to rerender the screen to avoid any wonkiness
           setState(() {});
         })
@@ -63,7 +64,17 @@ class _CameraPageState extends State<CameraPage> {
         child: Column(children: [Expanded(child: CameraPreview(_controller))]),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () async {
+          if (mounted) {
+            var file = await takePicture();
+            if (file != null && mounted) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text("Picture saved to ${file.path}")),
+              );
+            }
+            // It only saves to the cache for now, so maybe in the futrue save it to a more secure location
+          }
+        },
         child: Icon(Icons.camera),
       ),
     );
