@@ -14,7 +14,31 @@ class _GalleryPageState extends State<GalleryPage> {
   List<String> photos = [];
 
   @override
+  void initState() {
+    super.initState();
+    getApplicationCacheDirectory().then((dir) {
+      setState(() {
+        photosDir = dir.path;
+
+        dir.listSync().toList().forEach((photoFile) {
+          if (photoFile.path.endsWith('jpg')) photos.add(photoFile.path);
+        });
+      });
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      body: ListView.builder(
+        itemBuilder: (context, id) {
+          return ListTile(
+            leading: Image.file(File(photos[id]), height: 50, width: 50),
+            title: Text(photos[id]),
+          );
+        },
+        itemCount: photos.length,
+      ),
+    );
   }
 }

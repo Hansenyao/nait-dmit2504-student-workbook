@@ -1,4 +1,5 @@
 import 'package:camera/camera.dart';
+import 'package:camera_app/pages/gallery_page.dart';
 import 'package:flutter/material.dart';
 
 class CameraPage extends StatefulWidget {
@@ -59,7 +60,19 @@ class _CameraPageState extends State<CameraPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Camera Page')),
+      appBar: AppBar(
+        title: Text('Camera Page'),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.of(
+                context,
+              ).push(MaterialPageRoute(builder: (_) => GalleryPage()));
+            },
+            icon: Icon(Icons.photo),
+          ),
+        ],
+      ),
       body: Center(
         child: Column(children: [Expanded(child: CameraPreview(_controller))]),
       ),
